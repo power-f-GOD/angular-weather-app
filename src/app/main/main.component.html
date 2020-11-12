@@ -1,0 +1,59 @@
+<div class="container">
+  <nav #TabLinksContainer class="tab-links-container">
+    <span class="tab-indicator"></span>
+    <a href="/today" id="current" class="tab-link active" (click)="updateTabLinks(0, $event)">Now</a>
+    <a href="/tomorrow" id="tomorrow" class="tab-link" (click)="updateTabLinks(1, $event)">Tomorrow</a>
+    <a href="/other-day" id="other" class="tab-link"
+      (click)="updateTabLinks(2, $event)">{{other?.date_string || '...' }}</a>
+  </nav>
+
+  <!-- %CardTypeA% -->
+  <app-card type='A' class="card type-a"></app-card>
+
+  <!-- hourlies -->
+  <button class="hourlies-toggler" [class]="hourliesMounted ? 'toggle-close' : ''" aria-label="toggle hourly data"
+    (click)="toggleHourlies()" #HourliesToggler>
+    {{hourliesMounted ? '✕' : 'hourly'}}
+  </button>
+
+  <section #HourliesWrapper class="hourlies-wrapper" [class]="hourliesMounted ? 'open' : ''" role="presentation"
+    aria-modal="true">
+    <div class="legend container w-100">
+      <div class="hourlies-container-1 w-100 text-center">
+        <h2 id="hr1">Next 0 - 24 hours</h2>
+        <small>(24-hour hourly)</small>
+        <!-- <section class="list-view" role="list" aria-labelledby="#hr1"> -->
+        <!-- %CardTypeC-1% -->
+        <app-card type='C' slice='"1"' class="list-view" role="list" aria-labelledby="#hr1"></app-card>
+        <!-- <div class='hourly-wrapper card condition--cloudy-sun--0 fade-in' role='list-item'>
+            <div class="temp-meter therm--cold--0"></div>
+            <div class="hour">00:00<sup>...</sup></div>
+            <div class="weather-image" role="img" aria-label="weather icon"></div>
+            <p class="main">...</p>
+            <div class="temp">0&deg;</div>
+          </div> -->
+        <!-- </section> -->
+      </div>
+
+      <div class="hourlies-container-2 w-100 text-center">
+        <h2 id="hr2">Next 24 - 48 hours</h2>
+        <small>(24-hour hourly)</small>
+        <app-card type='C' slice='"2"' class="list-view" role="list" aria-labelledby="#hr2"></app-card>
+        <!-- <section class="list-view" role="list" aria-labelledby="#hr2"> -->
+        <!-- %CardTypeC-2% -->
+
+        <!-- <div class='hourly-wrapper card condition--cloudy-sun--0 fade-in' role='list-item'>
+            <div class="temp-meter therm--cold--0"></div>
+            <div class="hour">00:00<sup>...</sup></div>
+            <div class="weather-image" role="img" aria-label="weather icon"></div>
+            <p class="main">...</p>
+            <div class="temp">0&deg;</div>
+          </div> -->
+        <!-- </section> -->
+      </div>
+    </div>
+  </section>
+
+  <h2 id="next-7-days">Next 7 days</h2>
+  <app-card type='B' class="daily-list-view" role="list" aria-labelledby="#next-7-days"></app-card>
+</div>

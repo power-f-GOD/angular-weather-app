@@ -25,10 +25,15 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/images",
+              "src/icons"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/index.scss",
+              "src/styles/theme.scss",
+              "src/styles/responsive.scss",
+              "src/styles/animation.scss"
             ],
             "scripts": []
           },
@@ -89,10 +94,15 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/images",
+              "src/icons"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/index.scss",
+              "src/styles/theme.scss",
+              "src/styles/responsive.scss",
+              "src/styles/animation.scss"
             ],
             "scripts": []
           }
@@ -105,9 +115,7 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -123,6 +131,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "angular-weather-app"
 }

@@ -1,0 +1,73 @@
+<ng-container [ngSwitch]="type">
+  <ng-container *ngSwitchCase='"A"'>
+    <!-- %CardTypeA% -->
+    <div class="sub-card type-a" *ngIf="type === 'A'" [class]="CardMainProps?.className || 'condition--cloudy-sun--0'"
+      #CardMain aria-live="polite">
+      <div class='top'>
+        <p class='feels-like-container'>
+          <span>feels like</span>
+          <br />
+          <span class='feels-like'>{{CardMainProps?.feels_like || '0'}}&deg;</span>
+        </p>
+        <p class='uvi-container' [ngStyle]="{display: CardMainProps?.display_uvi ? 'block' : 'none'}">
+          <a href='https://www.epa.gov/sunsafety/uv-index-scale-0' target='_blank'>uvi</a>
+          <br />
+          <span class='uvi'
+            [class]="CardMainProps?.uvi_className || 'i--safe--0'">{{CardMainProps?.uvi || '...'}}</span>
+        </p>
+        <p class='wind-speed-container'>
+          <span>wind speed</span>
+          <br />
+          <span class='wind-speed'>{{CardMainProps?.wind_speed || '0'}} m/s</span>
+        </p>
+      </div>
+      <h1>{{CardMainProps?.temperature || '0'}}&deg;</h1>
+      <div class='thermometer-wrapper'>
+        <div class='thermometer' [class]='CardMainProps?.thermometer_className || "therm--cold--0"'
+          [ngStyle]="{height: (CardMainProps?.thermometer_min_height || '0')  + '%'}"></div>
+        <div class='danger-zone'></div>
+        <span>°C</span>
+      </div>
+      <div class="desc-wrapper text-left">
+        <p class="desc">{{CardMainProps?.desc || '...'}}</p>
+        <p class="humidity">Humidity</p>
+        <p class="humidity-deg">{{CardMainProps?.humidity}}%</p>
+        <div class="weather-image" role="img"></div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngSwitchCase='"B"'>
+    <!-- %CardTypeB% -->
+    <ng-container *ngFor="let data of CardsDailyProps">
+      <div class="card type-a"><a href='#!' class="sub-card type-b"
+          [class]="data?.className || 'condition--cloudy-sun--0'" role='list-item'
+          (click)="data?.clickEventListener($event)">
+          <h3>{{data?.date_string || '...'}}</h3>
+          <div class="weather-image" role="img"></div>
+          <p>{{data?.temperature || '0'}}&deg;</p>
+        </a>
+      </div>
+    </ng-container>
+  </ng-container>
+
+
+  <ng-container *ngSwitchCase='"C"'>
+    <!-- %CardTypeB% -->
+    <ng-container *ngIf="CardsHourlyProps && hourliesMounted">
+      <ng-container *ngFor="let data of CardsHourlyProps.slice(slice === '1' ? 0 : 24, slice === '1' ? 24 : 48)">
+        <!-- %CardTypeC-2% -->
+        <div class="card type-a">
+          <div class='hourly-wrapper card condition--cloudy-sun--0 fade-in' role='list-item'>
+            <div class="temp-meter therm--cold--0"></div>
+            <div class="hour">00:00<sup>...</sup></div>
+            <div class="weather-image" role="img" aria-label="weather icon"></div>
+            <p class="main">...</p>
+            <div class="temp">0&deg;</div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+  </ng-container>
+</ng-container>

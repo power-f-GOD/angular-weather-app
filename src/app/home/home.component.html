@@ -1,0 +1,16 @@
+<app-nav #Nav class="Nav hide"></app-nav>
+<div class="search-results-overlay" role="dialog" aria-modal="true">
+  <div class="container" role="list"></div>
+</div>
+<div class="View" #View>
+  <header class="Home" #Home [class.hide]="hideHomeElement">
+    <div class="cloud-image" role="img" aria-label="splash screen weather icon"></div>
+    <h1>Weather App</h1>
+    <p>by @Power'f GOD⚡️⚡️</p>
+    <button aria-label="explore app" #Explore (click)="explore(Explore)">
+      Explore
+    </button>
+  </header>
+  <app-main *ngIf="hideHomeElement" #Main class="Main"></app-main>
+  <app-footer *ngIf="hideHomeElement" #Footer class="Footer"></app-footer>
+</div>
