@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { Inert } from '../../services/inert.service';
 import { Query_ } from '../../services/query.service';
 import { StateModel } from '../../types';
+import { Task } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-nav',
@@ -295,5 +296,9 @@ export class NavComponent implements OnInit {
 
     // (Q('.search-form') as HTMLElement).onsubmit = (e: Event) =>
     //   e.preventDefault();
+  }
+
+  retryNetworkRequest() {
+    Task.execute();
   }
 }

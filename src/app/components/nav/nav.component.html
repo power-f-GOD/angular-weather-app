@@ -8,7 +8,8 @@
   </div>
 
   <span #CityLocation class="location" [class]="location?.err ? 'error' : ''" aria-label="location name or status"
-    aria-live="assertive"><span>{{location?.statusText ? location?.statusText : location?.name || 'Fetching weather data...'}}</span>
+    aria-live="assertive"
+    (click)="retryNetworkRequest()"><span>{{location?.statusText ? location?.statusText : location?.name || 'Fetching weather data...'}}</span>
   </span>
 
   <form method="GET" class="search-form d-flex justify-content-end align-content-center" aria-label="search form">

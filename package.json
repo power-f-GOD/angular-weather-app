@@ -7,7 +7,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "add": "git stash && git checkout dev && git stash apply && git add .;",
+    "deploy": "git checkout master && git pull && git merge dev && git push",
+    "rebase:dev": "git stash && git checkout master && git pull origin master && git checkout dev && git rebase master && git stash apply",
+    "push:dev": "git stash && git checkout dev && git rebase master && git pull && git push"
   },
   "private": true,
   "dependencies": {
