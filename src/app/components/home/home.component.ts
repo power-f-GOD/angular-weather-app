@@ -14,6 +14,7 @@ import { StateModel } from '../../types';
 import { Timers } from '../../services/timers.service';
 import { Get } from '../../services/get.service';
 import { SetState } from '../../state/actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -23,11 +24,14 @@ export class HomeComponent implements OnInit {
   hideHomeElement: boolean = false;
   disableExploreButton: boolean = false;
 
-  @Select(AppState) state: StateModel;
+  @Select((state: { app: StateModel }) => state.app)
+  state$: Observable<StateModel>;
 
   @ViewChild('Nav', { read: ElementRef }) NavRef: ElementRef<HTMLElement>;
   @ViewChild('View') ViewRef: ElementRef;
   @ViewChild('Home') HomeRef: ElementRef;
+
+  state: StateModel;
 
   constructor(
     private addEventListenerOnce: AddEventListenerOnce,
@@ -38,7 +42,9 @@ export class HomeComponent implements OnInit {
     private store: Store
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.state$.subscribe((state) => (this.state = state));
+  }
 
   async ngAfterViewInit(): Promise<any> {
     const delay = this.timers.delay;
@@ -57,17 +63,19 @@ export class HomeComponent implements OnInit {
         this.hideHomeElement = true;
         this.unmount(); // remove home (splash screen) from the DOM
         await delay(1200);
-        this.store.dispatch(
-          new SetState({
-            ...weatherAppState,
-            location: {
-              ...weatherAppState.location,
-              err: false,
-              statusText: null
-            },
-            nightMode: undefined
-          })
-        );
+        this.store
+          .dispatch(
+            new SetState({
+              ...weatherAppState,
+              location: {
+                ...weatherAppState.location,
+                err: false,
+                statusText: null
+              },
+              nightMode: undefined
+            })
+          )
+          .subscribe((state) => (this.state = state.app));
         await delay(2000);
 
         //update weather data on app load/reload as previous data (from localStorage) might be stale

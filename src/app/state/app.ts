@@ -8,14 +8,22 @@ import { SetState } from './actions';
   defaults: {
     latitude: 40.69,
     longitude: -73.96,
-    location: { name: 'New York, US', err: false },
-    nightMode: undefined,
-  },
+    location: { name: 'Fetching weather data...', err: false },
+    nightMode: undefined
+  }
 })
 @Injectable({ providedIn: 'root' })
 export class AppState {
   @Action(SetState)
   SetState(ctx: StateContext<StateModel>, { payload }: SetState) {
-    ctx.setState((state) => ({ ...state, ...payload }));
+    ctx.setState((state) => {
+      const newState = { ...state, ...payload };
+
+      if (navigator.cookieEnabled && newState.current) {
+        localStorage.weatherAppState = JSON.stringify(newState);
+      }
+
+      return newState;
+    });
   }
 }
