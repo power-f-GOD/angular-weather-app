@@ -72,7 +72,8 @@ export class HomeComponent implements OnInit {
                 err: false,
                 statusText: null
               },
-              nightMode: undefined
+              nightMode: undefined,
+              hourliesMounted: false
             })
           )
           .subscribe((state) => (this.state = state.app));

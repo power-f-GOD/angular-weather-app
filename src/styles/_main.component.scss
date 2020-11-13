@@ -214,7 +214,7 @@
 
   .list-view {
     // @include debugger();
-    height: 12rem;
+    min-height: 12.5rem;
     width: 100%;
     margin: 1rem 0;
     display: flex;
@@ -248,7 +248,7 @@
     display: inline-flex;
     position: relative;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between !important;
 
     &:nth-child(even) {
       .weather-image {
