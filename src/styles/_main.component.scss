@@ -317,5 +317,9 @@
     display: flex;
     overflow-x: auto;
     // @include debugger();
+
+    .card:last-child .sub-card.type-b {
+      margin-right: 0;
+    }
   }
 }
