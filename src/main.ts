@@ -5,7 +5,6 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 import webpImage from './images/cloudy-sun.webp';
-import { Store } from '@ngxs/store';
 
 if (environment.production) {
   enableProdMode();

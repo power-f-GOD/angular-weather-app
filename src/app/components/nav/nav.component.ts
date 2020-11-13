@@ -298,6 +298,11 @@ export class NavComponent implements OnInit {
     //   e.preventDefault();
   }
 
+  triggerSearch(e: Event) {
+    e.preventDefault();
+    alert('Search currently under construction.')
+  }
+
   retryNetworkRequest() {
     Task.execute();
   }

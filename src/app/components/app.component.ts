@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { Task } from './services/task.service';
-import { SetState } from './state/actions';
+import { Task } from '../services/task.service';
+import { SetState } from '../state/actions';
 
 @Component({
   selector: 'app-root',
