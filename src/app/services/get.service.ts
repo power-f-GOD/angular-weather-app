@@ -202,9 +202,9 @@ export class Get {
   }
 
   catch(e?: any) {
-    const err = String(e);
+    const err = JSON.stringify(e);
 
-    if (/fetch|network|promise/i.test(err)) {
+    if (/fetch|network|promise|http/i.test(err)) {
       alert(
         `${
           !navigator.onLine
