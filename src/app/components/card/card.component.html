@@ -53,7 +53,6 @@
 
 
   <ng-container *ngSwitchCase='"C"'>
-    <!-- %CardTypeB% -->
     <ng-container *ngIf="CardsHourlyProps && hourliesMounted">
       <ng-container *ngFor="let data of CardsHourlyProps.slice(+slice, +slice === 0 ? 24 : 48)">
         <!-- %CardTypeC-2% -->
@@ -70,6 +69,5 @@
         </div>
       </ng-container>
     </ng-container>
-
   </ng-container>
 </ng-container>
