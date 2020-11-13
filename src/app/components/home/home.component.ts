@@ -5,14 +5,15 @@ import {
   ElementRef,
   ViewChild
 } from '@angular/core';
-import { AddEventListenerOnce } from '../services/addEventListenerOnce.service';
-import { Inert } from '../services/inert.service';
 import { Select, Store } from '@ngxs/store';
-import { AppState } from '../state/app';
-import { StateModel } from '../types';
-import { Timers } from '../services/timers.service';
-import { Get } from '../services/get.service';
-import { SetState } from '../state/actions';
+
+import { AddEventListenerOnce } from '../../services/addEventListenerOnce.service';
+import { Inert } from '../../services/inert.service';
+import { AppState } from '../../state/app';
+import { StateModel } from '../../types';
+import { Timers } from '../../services/timers.service';
+import { Get } from '../../services/get.service';
+import { SetState } from '../../state/actions';
 
 @Component({
   selector: 'app-home',

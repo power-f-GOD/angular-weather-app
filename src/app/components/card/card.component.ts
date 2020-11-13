@@ -9,28 +9,33 @@ import {
 } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { StateModel, WeatherResponseMain, WeatherInfoProps } from '../types';
-import { Timers } from '../services/timers.service';
-import { Num } from '../services/num.service';
-import { MappedImageURL } from '../services/mappedImageUrl.service';
-import { AddEventListenerOnce } from '../services/addEventListenerOnce.service';
-import { SetState } from '../state/actions';
-import { Query_ } from '../services/query.service';
+
+import { StateModel, WeatherResponseMain, WeatherInfoProps } from '../../types';
+import { Timers } from '../../services/timers.service';
+import { Num } from '../../services/num.service';
+import { MappedImageURL } from '../../services/mappedImageUrl.service';
+import { AddEventListenerOnce } from '../../services/addEventListenerOnce.service';
+import { SetState } from '../../state/actions';
+import { Query_ } from '../../services/query.service';
+import { RequireDate } from 'src/app/services/requireDate.service';
 
 interface CardPropsModel {
-  feels_like: number;
-  uvi: string;
-  wind_speed: number;
+  feels_like?: number;
+  uvi?: string;
+  wind_speed?: number;
   temperature: number;
-  thermometer_min_height: number;
+  thermometer_min_height?: number;
   desc: string;
-  humidity: number;
+  humidity?: number;
   className: string;
-  display_uvi: boolean;
-  uvi_className: string;
-  thermometer_className: string;
+  display_uvi?: boolean;
+  uvi_className?: string;
+  thermometer_className?: string;
   date_string?: string;
   clickEventListener?: any;
+  temp_meter_height?: number;
+  temp_meter_className?: string;
+  hour?: string;
 }
 
 @Component({
@@ -62,7 +67,7 @@ export class CardComponent implements OnInit {
   @ViewChild('CardMain', { read: ElementRef }) CardMainRef: ElementRef;
 
   @Input() type: 'A' | 'B' | 'C';
-  @Input() slice: '1' | '2';
+  @Input() slice: number | string;
 
   current: StateModel['current'];
   tomorrow: StateModel['tomorrow'];
@@ -75,7 +80,7 @@ export class CardComponent implements OnInit {
 
   CardMainProps: CardPropsModel;
   CardsDailyProps = Array(7).fill(null) as Partial<CardPropsModel>[];
-  CardsHourlyProps = null;
+  CardsHourlyProps: CardPropsModel[];
 
   constructor(
     private store: Store,
@@ -84,7 +89,8 @@ export class CardComponent implements OnInit {
     private mappedImageURL: MappedImageURL,
     private addEventListenerOnce: AddEventListenerOnce,
     private cdr: ChangeDetectorRef,
-    private query: Query_
+    private query: Query_,
+    private requireDate: RequireDate
   ) {}
 
   ngOnInit(): void {}
@@ -126,11 +132,14 @@ export class CardComponent implements OnInit {
     });
     this.hourly$.subscribe((hourly) => {
       this.hourly = hourly;
-      this.update(hourly as any, 'C');
     });
     this.nightMode$.subscribe((nightMode) => {
       this.nightMode = nightMode;
       this.updateBody({ nightMode });
+    });
+    this.hourliesMounted$.subscribe((mounted) => {
+      this.hourliesMounted = mounted;
+      this.update(this.hourly as any, 'C');
     });
   }
 
@@ -249,6 +258,34 @@ export class CardComponent implements OnInit {
 
         break;
       }
+      case 'C':
+        {
+          if (!this.CardsHourlyProps) {
+            this.CardsHourlyProps =
+              data?.map((datum) => {
+                const { dt, temp, weather } = datum;
+                const { description, main } = weather?.slice(-1)[0] ?? datum;
+                const { hour, day } = this.requireDate.chunk(dt, true);
+                const degree = this.num.round(temp as number);
+                const weatherImage = this.mappedImageURL.require(
+                  main as WeatherResponseMain,
+                  description as string
+                );
+
+                return {
+                  hour: `${hour} ${day}`,
+                  desc: description || '...',
+                  temperature: degree,
+                  temp_meter_height: degree <= 0 || !degree ? 0 : degree,
+                  temp_meter_className: `therm--${
+                    degree < 20 ? 'cold' : degree < 40 ? 'warm' : 'hot'
+                  }--0`,
+                  className: `condition--${weatherImage}--0 animate`
+                };
+              }) || this.CardsHourlyProps;
+          }
+        }
+        break;
     }
 
     this.cdr.detectChanges();

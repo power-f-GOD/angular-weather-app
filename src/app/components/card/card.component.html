@@ -55,15 +55,17 @@
   <ng-container *ngSwitchCase='"C"'>
     <!-- %CardTypeB% -->
     <ng-container *ngIf="CardsHourlyProps && hourliesMounted">
-      <ng-container *ngFor="let data of CardsHourlyProps.slice(slice === '1' ? 0 : 24, slice === '1' ? 24 : 48)">
+      <ng-container *ngFor="let data of CardsHourlyProps.slice(+slice, +slice === 0 ? 24 : 48)">
         <!-- %CardTypeC-2% -->
         <div class="card type-a">
-          <div class='hourly-wrapper card condition--cloudy-sun--0 fade-in' role='list-item'>
-            <div class="temp-meter therm--cold--0"></div>
-            <div class="hour">00:00<sup>...</sup></div>
+          <div class='hourly-wrapper sub-card fade-in' role='list-item'
+            [class]="data.className || 'condition--cloudy-sun--0'">
+            <div class="temp-meter therm--cold--0" [class]="data.temp_meter_className"
+              [ngStyle]="{height: data.temp_meter_height + '%'}"></div>
+            <div class="hour">{{data.hour.split(' ')[0] || '...'}}<sup>{{data.hour.split(' ')[1]}}</sup></div>
             <div class="weather-image" role="img" aria-label="weather icon"></div>
-            <p class="main">...</p>
-            <div class="temp">0&deg;</div>
+            <p class="main">{{data.desc || '...'}}</p>
+            <div class="temp">{{data.temperature || '0'}}&deg;</div>
           </div>
         </div>
       </ng-container>

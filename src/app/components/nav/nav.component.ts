@@ -7,10 +7,11 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { Inert } from '../services/inert.service';
-import { Query_ } from '../services/query.service';
-import { StateModel } from '../types';
 import { Observable } from 'rxjs';
+
+import { Inert } from '../../services/inert.service';
+import { Query_ } from '../../services/query.service';
+import { StateModel } from '../../types';
 
 @Component({
   selector: 'app-nav',

@@ -7,18 +7,17 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { StateModel } from '../types';
 import { Observable } from 'rxjs';
-import { Timers } from '../services/timers.service';
-import { Num } from '../services/num.service';
-import { MappedImageURL } from '../services/mappedImageUrl.service';
-import { AddEventListenerOnce } from '../services/addEventListenerOnce.service';
-import { SetState } from '../state/actions';
-import { Inert } from '../services/inert.service';
-import { Get } from '../services/get.service';
-import { Transform } from '../services/transform.service';
-import { Task } from '../services/task.service';
-import { Query_ } from '../services/query.service';
+
+import { StateModel } from '../../types';
+import { Timers } from '../../services/timers.service';
+import { AddEventListenerOnce } from '../../services/addEventListenerOnce.service';
+import { SetState } from '../../state/actions';
+import { Inert } from '../../services/inert.service';
+import { Get } from '../../services/get.service';
+import { Transform } from '../../services/transform.service';
+import { Task } from '../../services/task.service';
+import { Query_ } from '../../services/query.service';
 
 @Component({
   selector: 'app-main',

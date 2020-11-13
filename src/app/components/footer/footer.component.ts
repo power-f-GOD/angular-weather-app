@@ -7,12 +7,13 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
-import { Inert } from '../services/inert.service';
-import { Query_ } from '../services/query.service';
-import { SetState } from '../state/actions';
-import { StateModel } from '../types';
 import { Observable } from 'rxjs';
-import { RequireDate } from '../services/requireDate.service';
+
+import { Inert } from '../../services/inert.service';
+import { Query_ } from '../../services/query.service';
+import { SetState } from '../../state/actions';
+import { StateModel } from '../../types';
+import { RequireDate } from '../../services/requireDate.service';
 
 @Component({
   selector: 'app-footer',

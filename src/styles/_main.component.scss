@@ -165,7 +165,7 @@
         0.95
       );
       transition: transform 0.35s cubic-bezier(0.645, 0.045, 0.355, 1),
-        border-radius 0s ease 0.2s, background-color 0.25s;
+        border-radius 0.05s ease 0.2s, background-color 0.25s;
       transform: translateY(0);
       border-radius: 0;
 
@@ -222,6 +222,18 @@
     border: 0.125rem solid white;
     border-radius: 1rem;
     background-color: rgba(255, 255, 255, 0.2);
+
+    .card {
+      min-width: 7rem; // support purpose
+      min-width: calc(min(7rem, 27.5%));
+      margin-right: 0.125rem;
+
+      &:last-child {
+        .hourly-wrapper {
+          margin-right: 0;
+        }
+      }
+    }
   }
 
   .hourly-wrapper {
@@ -231,13 +243,12 @@
     border-bottom-right-radius: unset;
     padding: 0.75rem 0.85rem;
     font-size: 0.9rem;
-    min-width: 7rem; // support purpose
-    min-width: calc(min(7rem, 27.5%));
+    height: 100%;
+    width: 100%;
     display: inline-flex;
     position: relative;
     flex-direction: column;
     justify-content: space-around;
-    margin-right: 0.125rem;
 
     &:nth-child(even) {
       .weather-image {
